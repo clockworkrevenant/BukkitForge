@@ -841,7 +841,7 @@ public class CraftPlayer extends CraftHumanEntity implements Player, CommandSend
 			FMLNetworkHandler.handlePacket250Packet(packet, 
 					getHandle().playerNetServerHandler.netManager, 
 					getHandle().playerNetServerHandler);
-			//getHandle().playerNetServerHandler.sendPacketToPlayer(packet);
+			getHandle().playerNetServerHandler.sendPacketToPlayer(packet);
 		}
 	}
 
@@ -886,7 +886,6 @@ public class CraftPlayer extends CraftHumanEntity implements Player, CommandSend
 			packet.length = packet.data.length;
 
 			FMLNetworkHandler.handlePacket250Packet(packet, getHandle().playerNetServerHandler.netManager, getHandle().playerNetServerHandler);
-
 		}
 	}
 

@@ -34,7 +34,7 @@ public class ForgePacketHandler implements IPacketHandler {
 	
 	public static HashMap<String,List<String>> listeningChannels = Maps.newHashMap();
 	
-	private static ForgePacketHandler INSTANCE;
+	private static ForgePacketHandler INSTANCE = null;
 	
 	public ForgePacketHandler() {
 		this.INSTANCE = this;
@@ -47,10 +47,10 @@ public class ForgePacketHandler implements IPacketHandler {
 			return; // nothing client-side here.
 		}
 		EntityPlayer fp = (EntityPlayer) player;
-		if (this.listeningChannels.values().contains(packet.channel) && this.listeningChannels.get(fp.username).contains(packet.channel)) {
+		//if (this.listeningChannels.values().contains(packet.channel) && this.listeningChannels.get(fp.username).contains(packet.channel)) {
 			((StandardMessenger)CraftServer.instance().getMessenger()).dispatchIncomingMessage(BukkitForgePlayerCache.getCraftPlayer((EntityPlayerMP) player), packet.channel, packet.data);
 			
-		}
+		//}
 		
 	}
 	
@@ -64,6 +64,13 @@ public class ForgePacketHandler implements IPacketHandler {
 			NetworkRegistry.instance().registerChannel(INSTANCE, chan, Side.SERVER);
 			listeningChannels.get(player.username).add(chan);
 		}
+	}
+	
+	public static ForgePacketHandler instance()
+	{
+		if(INSTANCE != null)
+			return INSTANCE;
+		return new ForgePacketHandler();
 	}
 
 }
